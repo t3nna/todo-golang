@@ -1,0 +1,4 @@
+.idea
+.DS_Store
+just_test.go
+.coverage.out

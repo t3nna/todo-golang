@@ -3,31 +3,45 @@ package main
 import "github.com/hellflame/argparse"
 
 type Opts struct {
-	Add  []string
-	List bool
-	Comp []string
-	Del  string
+	list string
+	add  []string
+	comp []string
+	rm   []string
 }
 
-func getOpts() (Opts, error) {
-	parser := argparse.NewParser("todo", "this is basic todo", nil)
+func getOpts() (opts *Opts, err error) {
+	parser := argparse.NewParser("todo", "gets all the values", &argparse.ParserConfig{
+		DisableDefaultShowHelp: true,
+	})
 
 	add := parser.Strings("a", "add", &argparse.Option{
-		Required: false,
 		Default:  "",
+		Required: false,
 	})
 
-	list := parser.Strings("l", "list", &argparse.Option{
-		Required: false,
+	list := parser.String("l", "list", &argparse.Option{
 		Default:  "",
-	})
-	complete := parser.Strings("c", "complete", &argparse.Option{
 		Required: false,
-		Default:  "",
-	})
-	del := parser.Strings("d", "delete", &argparse.Option{
-		Required: false,
-		Default:  "",
 	})
 
+	comp := parser.Strings("c", "comp", &argparse.Option{
+		Default:  "",
+		Required: false,
+	})
+	del := parser.Strings("d", "del", &argparse.Option{
+		Default:  "",
+		Required: false,
+	})
+
+	err = parser.Parse(nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return &Opts{
+		add:  *add,
+		list: *list,
+		comp: *comp,
+		rm:   *del,
+	}, nil
 }

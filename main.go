@@ -2,17 +2,18 @@ package main
 
 import (
 	"fmt"
-	"github.com/hellflame/argparse"
+	"log"
 )
 
 func main() {
-	parser := argparse.NewParser("basic", "this is a basic program", nil)
-
-	name := parser.String("n", "name", nil)
-
-	if e := parser.Parse(nil); e != nil {
-		fmt.Println(e.Error())
-		return
+	opts, err := getOpts()
+	fmt.Println("")
+	if err != nil {
+		log.Fatal("error: %v", err)
 	}
-	fmt.Printf("hello %s\n", *name)
+	fmt.Println(opts)
+	todo := NewTodo("./data/data.json")
+	data := todo.GetValueAll()
+	fmt.Println(data)
+
 }

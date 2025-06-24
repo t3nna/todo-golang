@@ -1,0 +1,22 @@
+{
+  "todo": {
+    "item123": {
+      "id": "item123",
+      "description": "Buy groceries",
+      "createdAt": "2023-10-27T10:00:00Z",
+      "isComplete": false
+    },
+    "task456": {
+      "id": "task456",
+      "description": "Finish project report",
+      "createdAt": "2023-10-26T14:30:00Z",
+      "isComplete": true
+    },
+    "chore789": {
+      "id": "chore789",
+      "description": "Walk the dog",
+      "createdAt": "2023-10-27T08:00:00Z",
+      "isComplete": false
+    }
+  }
+}

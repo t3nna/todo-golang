@@ -11,12 +11,6 @@
       "description": "Finish project report",
       "createdAt": "2023-10-26T14:30:00Z",
       "isComplete": true
-    },
-    "chore789": {
-      "id": "chore789",
-      "description": "Walk the dog",
-      "createdAt": "2023-10-27T08:00:00Z",
-      "isComplete": false
     }
   }
 }

@@ -3,7 +3,9 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/google/uuid"
 	"os"
+	"path"
 )
 
 type TodoItem struct {
@@ -32,11 +34,45 @@ func (todo *Todo) GetValueAll() Data {
 	return *todo.data
 }
 
+func (todo *Todo) SetValue(item *TodoItem, key ...string) {
+	if len(key) > 0 {
+		todo.data.Todo[key[0]] = *item
+		return
+	}
+	todo.data.Todo[uuid.New().String()] = *item
+
+}
+
+func (todo *Todo) DeleteValue(key string) {
+	delete(todo.data.Todo, key)
+}
+
 func defaultTodo(path string) *Todo {
 	return &Todo{
 		data: &Data{map[string]TodoItem{}},
 		path: path,
 	}
+}
+
+func (todo *Todo) Save() error {
+	dir := path.Dir(todo.path)
+	if _, err := os.Stat(dir); os.IsNotExist(err) {
+		err = os.MkdirAll(dir, 0755)
+		if err != nil {
+			return err
+		}
+
+	}
+	jsonString, err := json.Marshal(todo.data)
+	if err != nil {
+		return err
+	}
+	err = os.WriteFile(todo.path, jsonString, 0755)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 // if we have file in place

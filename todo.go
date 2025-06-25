@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/google/uuid"
+	"log"
 	"os"
 	"path"
 )
@@ -30,10 +31,6 @@ func (todo *Todo) GetValueById(key string) (item *TodoItem, found bool) {
 	return nil, false
 }
 
-func (todo *Todo) GetValueAll() Data {
-	return *todo.data
-}
-
 func (todo *Todo) SetValue(item *TodoItem, key ...string) {
 	if len(key) > 0 {
 		todo.data.Todo[key[0]] = *item
@@ -44,7 +41,30 @@ func (todo *Todo) SetValue(item *TodoItem, key ...string) {
 }
 
 func (todo *Todo) DeleteValue(key string) {
-	delete(todo.data.Todo, key)
+	_, found := todo.GetValueById(key)
+	if found == false {
+		log.Fatal("Something went wrong")
+		return
+	}
+
+	if found {
+		delete(todo.data.Todo, key)
+
+	}
+	todo.Save()
+	// TODO: add deleting if key prefix is matched
+}
+
+func (todo *Todo) MakeComplete(key string) {
+	item, found := todo.GetValueById(key)
+
+	if found == false {
+		log.Fatal("Something went wrong", item)
+		return
+	}
+	item.IsComplete = true
+	todo.Save()
+
 }
 
 func defaultTodo(path string) *Todo {

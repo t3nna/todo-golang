@@ -3,7 +3,7 @@ package main
 import "github.com/hellflame/argparse"
 
 type Opts struct {
-	list string
+	list bool
 	add  []string
 	comp []string
 	rm   []string
@@ -19,8 +19,7 @@ func getOpts() (opts *Opts, err error) {
 		Required: false,
 	})
 
-	list := parser.String("l", "list", &argparse.Option{
-		Default:  "",
+	list := parser.Flag("l", "list", &argparse.Option{
 		Required: false,
 	})
 

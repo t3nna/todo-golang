@@ -36,7 +36,9 @@ func (todo *Todo) SetValue(item *TodoItem, key ...string) {
 		todo.data.Todo[key[0]] = *item
 		return
 	}
-	todo.data.Todo[uuid.New().String()] = *item
+	newId := uuid.New().String()
+	item.ID = newId
+	todo.data.Todo[newId] = *item
 
 }
 
@@ -63,6 +65,7 @@ func (todo *Todo) MakeComplete(key string) {
 		return
 	}
 	item.IsComplete = true
+	todo.SetValue(item, item.ID)
 	todo.Save()
 
 }

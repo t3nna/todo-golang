@@ -1,16 +1,1 @@
-{
-  "todo": {
-    "item123": {
-      "id": "item123",
-      "description": "Buy groceries",
-      "createdAt": "2023-10-27T10:00:00Z",
-      "isComplete": false
-    },
-    "task456": {
-      "id": "task456",
-      "description": "Finish project report",
-      "createdAt": "2023-10-26T14:30:00Z",
-      "isComplete": true
-    }
-  }
-}
+{"todo":{"060ae69f-fe34-4150-8835-9201f78cac38":{"id":"060ae69f-fe34-4150-8835-9201f78cac38","description":"water plants","createdAt":"2025-06-26 18:07:46.24383 +0200 CEST m=+0.001436584","isComplete":true},"31a19657-02d9-4e33-9bb3-b505cda28242":{"id":"31a19657-02d9-4e33-9bb3-b505cda28242","description":"Buy new boots","createdAt":"2025-06-26 17:53:36.411545 +0200 CEST m=+0.001042834","isComplete":true},"item123":{"id":"item123","description":"Buy groceries","createdAt":"2023-10-27T10:00:00Z","isComplete":false},"task456":{"id":"task456","description":"Finish project report","createdAt":"2023-10-26T14:30:00Z","isComplete":true}}}

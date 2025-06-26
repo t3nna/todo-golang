@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/google/uuid"
 	"os"
+	"strings"
 	"text/tabwriter"
 	"time"
 )
@@ -14,7 +14,6 @@ func handleOptions(opts *Opts, todo *Todo) error {
 	} else if len(opts.add) > 0 {
 		for _, v := range opts.add {
 			newTodo := TodoItem{
-				ID:          uuid.New().String(),
 				Description: v,
 				CreatedAt:   time.Now().String(),
 				IsComplete:  false,
@@ -29,11 +28,9 @@ func handleOptions(opts *Opts, todo *Todo) error {
 		for _, v := range opts.rm {
 			todo.DeleteValue(v)
 		}
-
 	} else if len(opts.comp) > 0 {
-		for _, v := range opts.comp {
-			todo.MakeComplete(v)
-		}
+		key := handlePrefixKey(todo.data, opts.comp)
+		todo.MakeComplete(key)
 	}
 
 	defer handlePrinting(todo.data)
@@ -50,4 +47,22 @@ func handlePrinting(data *Data) {
 		fmt.Fprintf(w, "%v\t%v\t%v\t%v\n", value.ID, value.Description, value.CreatedAt, value.IsComplete)
 	}
 	w.Flush()
+}
+
+func handlePrefixKey(data *Data, key string) string {
+	_, ok := data.Todo[key]
+	if ok {
+		return key
+	}
+
+	if len(key) < 4 {
+		return ""
+	}
+
+	for k, _ := range data.Todo {
+		if strings.HasPrefix(k, key) {
+			return k
+		}
+	}
+	return ""
 }

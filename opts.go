@@ -5,7 +5,7 @@ import "github.com/hellflame/argparse"
 type Opts struct {
 	list bool
 	add  []string
-	comp []string
+	comp string
 	rm   []string
 }
 
@@ -23,7 +23,7 @@ func getOpts() (opts *Opts, err error) {
 		Required: false,
 	})
 
-	comp := parser.Strings("c", "comp", &argparse.Option{
+	comp := parser.String("c", "comp", &argparse.Option{
 		Default:  "",
 		Required: false,
 	})

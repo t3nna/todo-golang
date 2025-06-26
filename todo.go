@@ -54,7 +54,6 @@ func (todo *Todo) DeleteValue(key string) {
 
 	}
 	todo.Save()
-	// TODO: add deleting if key prefix is matched
 }
 
 func (todo *Todo) MakeComplete(key string) {

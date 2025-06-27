@@ -4,6 +4,10 @@ github.com/google/uuid
 # github.com/hellflame/argparse v1.12.2
 ## explicit; go 1.16
 github.com/hellflame/argparse
+# github.com/mergestat/timediff v0.0.4
+## explicit; go 1.17
+github.com/mergestat/timediff
+github.com/mergestat/timediff/locale
 # golang.org/x/sys v0.33.0
 ## explicit; go 1.23.0
 golang.org/x/sys/plan9

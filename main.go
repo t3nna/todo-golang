@@ -7,7 +7,7 @@ import (
 func main() {
 	opts, err := getOpts()
 	if err != nil {
-		log.Fatal("error: %v", err)
+		log.Fatalf("error: %v", err)
 	}
 	todo := NewTodo("./data/data.json")
 

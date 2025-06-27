@@ -2,11 +2,15 @@ package main
 
 import (
 	"fmt"
+	"github.com/mergestat/timediff"
+	"log"
 	"os"
 	"strings"
 	"text/tabwriter"
 	"time"
 )
+
+const TimeFormat = time.RFC3339
 
 func handleOptions(opts *Opts, todo *Todo) error {
 	if opts.list {
@@ -15,7 +19,7 @@ func handleOptions(opts *Opts, todo *Todo) error {
 		for _, v := range opts.add {
 			newTodo := TodoItem{
 				Description: v,
-				CreatedAt:   time.Now().String(),
+				CreatedAt:   time.Now().Format(TimeFormat),
 				IsComplete:  false,
 			}
 			todo.SetValue(&newTodo)
@@ -44,7 +48,12 @@ func handlePrinting(data *Data) {
 	fmt.Fprintf(w, "ID\tTask\tCreated\tDone\n")
 	for _, value := range data.Todo {
 
-		fmt.Fprintf(w, "%v\t%v\t%v\t%v\n", value.ID, value.Description, value.CreatedAt, value.IsComplete)
+		createdAt, err := time.Parse(TimeFormat, value.CreatedAt)
+		if err != nil {
+			log.Fatal("Error with dates", err)
+		}
+
+		fmt.Fprintf(w, "%v\t%v\t%v\t%v\n", value.ID, value.Description, timediff.TimeDiff(createdAt), value.IsComplete)
 	}
 	w.Flush()
 }
